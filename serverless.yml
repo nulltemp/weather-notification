@@ -1,5 +1,9 @@
 service: weather-notification
 
+plugins:
+  - serverless-step-functions
+  - serverless-pseudo-parameters
+
 provider:
   name: aws
   runtime: nodejs8.10
@@ -9,3 +13,16 @@ provider:
 functions:
   hello:
     handler: handler.hello
+
+stepFunctions:
+  stateMachines:
+    hellostepfunc1:
+      definition:
+        Comment: "notification of weather forecast"
+        StartAt: GetWeatherForecast
+        TimeoutSeconds: 60
+        States:
+          GetWeatherForecast:
+            Type: Task
+            Resource: arn:aws:lambda:#{AWS::Region}:#{AWS::AccountId}:function:${self:service}-${opt:stage}-hello
+            End: true
