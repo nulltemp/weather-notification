@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "author": "nulltemp <nulltemp999@gmail.com>",
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.19.0",
     "config": "^3.0.1",
     "js-yaml": "^3.13.0"
   },
