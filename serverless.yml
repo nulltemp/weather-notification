@@ -25,4 +25,12 @@ stepFunctions:
           GetWeatherForecast:
             Type: Task
             Resource: arn:aws:lambda:#{AWS::Region}:#{AWS::AccountId}:function:${self:service}-${opt:stage}-hello
+            Next: Notify
+          Notify:
+            Type: Task
+            Resource: arn:aws:states:::sns:publish
+            Parameters:
+              Subject: "test"
+              Message: "test"
+              TopicArn: arn:aws:sns:#{AWS::Region}:#{AWS::AccountId}:weather-notification
             End: true
